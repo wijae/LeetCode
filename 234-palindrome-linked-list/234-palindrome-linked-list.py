@@ -6,16 +6,42 @@
 
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        l = []
+        # count length
         ptr = head
-        l.append(ptr.val)
-        
+        l = 1
         while ptr.next:
+            l += 1
             ptr = ptr.next
-            l.append(ptr.val)
+        
+        m1 = l // 2
+        m2 = l - m1
+        
+        ptr = head
+        for i in range(m2 - 1):
+            ptr = ptr.next
             
+        # reverse list after middle
+        mid = ptr
+        
+        cur = ptr.next
+        prev = None
+        nxt = None
+        while cur is not None:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+            
+        mid.next = prev
+            
+        # check palindrome
         palindrome = True
-        for i in range(len(l)):
-            palindrome = palindrome and (l[i] == l[len(l)-i-1])
+        
+        a = head
+        b = mid.next
+        for i in range(m1):
+            palindrome = palindrome and (a.val == b.val)
+            a = a.next
+            b = b.next
             
         return palindrome
