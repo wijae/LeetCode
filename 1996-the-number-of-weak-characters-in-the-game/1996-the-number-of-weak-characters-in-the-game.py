@@ -6,8 +6,6 @@ class Solution:
         max_defence = 0
         for (minus_attack, defence) in p:
             attack = -minus_attack
-            
-            print(attack, defence, max_defence)
         
             if defence < max_defence:
                 ans += 1
